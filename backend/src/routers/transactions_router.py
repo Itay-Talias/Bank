@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException, status
-from backend.src.db.dal_sql import CONNECTOR
+from fastapi import APIRouter, HTTPException, status, Request
+from ..db.dal_sql import CONNECTOR
 import pymysql as mysql
 
 
@@ -9,13 +9,14 @@ router = APIRouter()
 @router.get("/transactions", status_code=200)
 def get_all_transactions():
     try:
-        CONNECTOR.get_all_transactions()
-    except mysql.MySQLConnectionError as e:
+        transactions = CONNECTOR.get_all_transactions()
+    except mysql.MySQLError as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
+    return transactions
 
 
 @router.post("/transactions", status_code=201)
-def add_transactions():
+async def add_transactions(request: Request):
     pass
 
 

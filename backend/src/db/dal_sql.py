@@ -1,6 +1,6 @@
-from db.dal import DAL
+from src.db.dal import DAL
 import pymysql as mysql
-from db.queries import *
+from src.db.queries import *
 
 DEFAULT_HOST = "localhost"
 DEFAULT_USER = "root"
@@ -31,4 +31,7 @@ class dalSQL(DAL):
             self.connection.commit()
 
 
-CONNECTOR = dalSQL()
+try:
+    CONNECTOR = dalSQL()
+except Exception as e:
+    print(e)
