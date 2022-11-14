@@ -14,3 +14,7 @@ CREATE TABLE IF NOT EXISTS Transactions_info(
     is_depoist BOOLEAN NOT NULL
 );
 
+INSERT INTO Transactions_info (amount,category,vendor,is_depoist) VALUES(10,"Transportation","bus",False);
+INSERT INTO Transactions_info (amount,category,vendor,is_depoist) VALUES(100,"Food","cat food",False);
+INSERT INTO Transactions_info (amount,category,vendor,is_depoist) VALUES(200,"Entertainment","cat toys",False);
+INSERT INTO Transactions_info (amount,category,vendor,is_depoist) VALUES(1700,"Entertainment","cat video on tiktok",True);
