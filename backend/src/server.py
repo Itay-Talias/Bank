@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
 from routers import transactions_router
-from db.dal_sql import CONNECTOR
 app = FastAPI()
 
 app.include_router(transactions_router.router)
