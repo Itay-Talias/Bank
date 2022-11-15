@@ -8,18 +8,18 @@ router = APIRouter()
 
 
 @router.get("/transactions", status_code=200)
-def get_all_transactions():
+def get_all_transactions(user_id: int = 1):
     try:
-        transactions = CONNECTOR.get_all_transactions_by_user()
+        transactions = CONNECTOR.get_all_transactions_by_user(user_id)
     except mysql.MySQLError as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
     return transactions
 
 
 @router.post("/transactions", status_code=201)
-async def add_transactions(new_transaction: Transactions):
+async def add_transactions(new_transaction: Transactions, user_id: int = 1):
     try:
-        transaction_id = CONNECTOR.add_transaction(new_transaction)
+        transaction_id = CONNECTOR.add_transaction(new_transaction, user_id)
         new_transaction.transaction_id = transaction_id
     except mysql.MySQLError as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
