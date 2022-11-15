@@ -1,16 +1,18 @@
-from fastapi import APIRouter, HTTPException, status, Request
-from src.db.dal_sql import CONNECTOR
+from fastapi import APIRouter, HTTPException, status, Request, Depends
+from src.db.dal_sql import get_db_connector
+from src.db.dal import DAL
 import pymysql as mysql
 from src.models.transaction_data_class import Transactions
+from src.models.user_data_class import User
 
 
 router = APIRouter()
 
 
 @router.get("/transactions", status_code=200)
-def get_all_transactions(user_id: int = 1):
+def get_all_transactions(user_id: int = 1, db: DAL = Depends(get_db_connector)):
     try:
-        transactions = CONNECTOR.get_all_transactions_by_user(user_id)
+        transactions = db.get_all_transactions_by_user(user_id)
     except mysql.MySQLError as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
@@ -18,10 +20,11 @@ def get_all_transactions(user_id: int = 1):
 
 
 @router.post("/transactions", status_code=201)
-async def add_transactions(new_transaction: Transactions, user_id: int = 1):
+async def add_transactions(new_transaction: Transactions, user_id: int = 1, db: DAL = Depends(get_db_connector)):
     try:
-        transaction_id = CONNECTOR.add_transaction(new_transaction, user_id)
+        transaction_id = db.add_transaction(new_transaction, user_id)
         new_transaction.transaction_id = transaction_id
+        new_transaction.user_id = user_id
     except mysql.MySQLError as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
@@ -29,14 +32,14 @@ async def add_transactions(new_transaction: Transactions, user_id: int = 1):
 
 
 @router.delete("/transactions", status_code=204)
-async def delete_transactions(request: Request):
+async def delete_transactions(request: Request, db: DAL = Depends(get_db_connector)):
     try:
         transaction_id = await request.json()
         if (len(transaction_id) == 0):
             raise ValueError("transaction_id - empty")
         elif (not transaction_id["id"].isnumeric()):
             raise TypeError("transaction_id - isn't number")
-        CONNECTOR.remove_transaction_by_id(transaction_id=transaction_id["id"])
+        db.remove_transaction_by_id(transaction_id=transaction_id["id"])
     except mysql.MySQLError as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
