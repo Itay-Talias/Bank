@@ -34,8 +34,8 @@ async def delete_transactions(request: Request):
         transaction_id = await request.json()
         if (len(transaction_id) == 0):
             raise ValueError("transaction_id - empty")
-        # elif (not transaction_id["id"].is_integer() and not transaction_id["id"].isnumeric()):
-        #     raise TypeError("transaction_id - isn't number")
+        elif (not transaction_id["id"].isnumeric()):
+            raise TypeError("transaction_id - isn't number")
         CONNECTOR.remove_transaction_by_id(transaction_id=transaction_id["id"])
     except mysql.MySQLError as e:
         raise HTTPException(
