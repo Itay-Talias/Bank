@@ -2,6 +2,8 @@ from src.db.dal import DAL
 import pymysql as mysql
 from src.db.queries import *
 from src.models.transaction_data_class import Transactions
+import json
+
 
 DEFAULT_HOST = "localhost"
 DEFAULT_USER = "root"
@@ -22,12 +24,22 @@ class dalSQL(DAL):
 
     def get_all_transactions_by_user(self, user_id: int):
         with self.connection.cursor() as cursor:
-            cursor.execute(SELECT_TRANSACTIONS_BY_ID, [user_id])
+            cursor.execute(SELECT_TRANSACTIONS_BY_USER_ID, [user_id])
             result = cursor.fetchall()
+            return result
+
+    def get_transaction_by_id(self, transaction_id: int):
+        with self.connection.cursor() as cursor:
+            cursor.execute(SELECT_TRANSACTION_BY_ID, [transaction_id])
+            result = cursor.fetchone()
             return result
 
     def remove_transaction_by_id(self, transaction_id: int):
         with self.connection.cursor() as cursor:
+            transaction = self.get_transaction_by_id(transaction_id)
+            print(transaction)
+            self.change_balance(
+                not transaction["is_depoist"], transaction["amount"], transaction["user_id"])
             cursor.execute(DELETE_TRANSACTION, [transaction_id])
             self.connection.commit()
 
@@ -40,7 +52,7 @@ class dalSQL(DAL):
                             new_transaction.amount, user_id)
         return cursor.lastrowid
 
-    def change_balance(self, is_depoist: bool, amount: int, user_id: int):
+    def change_balance(self, is_depoist: bool | int, amount: int, user_id: int):
         with self.connection.cursor() as cursor:
             cursor.execute(SELECT_USER_BY_ID, [user_id])
             balance = int(cursor.fetchone()["balance"])
