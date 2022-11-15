@@ -27,8 +27,6 @@ CREATE TABLE IF NOT EXISTS Categories_info(
 );
 
 
-
-
 INSERT INTO Categories_info VALUES("Transportation");
 INSERT INTO Categories_info VALUES("Food");
 INSERT INTO Categories_info VALUES("Entertainment");

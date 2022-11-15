@@ -32,8 +32,12 @@ async def add_transactions(request: Request):
         transaction_id = await request.json()
         if (len(transaction_id) == 0):
             raise ValueError("transaction_id - empty")
+        elif (not transaction_id["id"].isnumeric()):
+            raise TypeError("transaction_id - isn't number")
         CONNECTOR.remove_transaction_by_id(transaction_id=transaction_id["id"])
     except mysql.MySQLError as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
-    except mysql.ValueError as e:
+    except ValueError as e:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=e)
+    except TypeError as e:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=e)
