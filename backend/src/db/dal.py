@@ -28,3 +28,6 @@ class DAL(ABC):
     @ abstractmethod
     def change_balanceֹ_for_user(self, amount: int, user_id: int):
         pass
+
+    def get_all_categories(self):
+        pass

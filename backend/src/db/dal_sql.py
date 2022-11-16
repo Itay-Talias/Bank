@@ -16,9 +16,7 @@ class DalSQL(DAL):
         with self.connection.cursor() as cursor:
             cursor.execute(SELECT_USER_BY_ID, [user_id])
             result = cursor.fetchone()
-            print(result)
             user = User(**result)
-            print(user)
             return user
 
     def get_all_transactions_by_user(self, user_id: int) -> List[Transactions]:
@@ -57,6 +55,12 @@ class DalSQL(DAL):
             balance = balance + int(amount)
             cursor.execute(UPDATE_BALANCE_BY_ID, [balance, user_id])
             self.connection.commit()
+
+    def get_all_categories(self):
+        with self.connection.cursor() as cursor:
+            cursor.execute(SELECT_ALL_CATEGORIES)
+            result = cursor.fetchall()
+            return result
 
 
 CONNECTOR = None
