@@ -14,7 +14,7 @@ class DAL(ABC):
         pass
 
     @abstractmethod
-    def remove_transaction_by_id(self, transaction_id: int) -> Transactions:
+    def get_transaction_by_id(self, transaction_id: int) -> Transactions:
         pass
 
     @ abstractmethod
@@ -26,5 +26,5 @@ class DAL(ABC):
         pass
 
     @ abstractmethod
-    def change_balance(self, is_depoist: bool, amount: int, user_id: int):
+    def change_balanceֹ_for_user(self, amount: int, user_id: int):
         pass

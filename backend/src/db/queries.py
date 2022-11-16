@@ -2,7 +2,7 @@ SELECT_TRANSACTION_BY_ID = """SELECT * FROM Transactions_info WHERE transaction_
 
 SELECT_TRANSACTIONS_BY_USER_ID = """SELECT * FROM Transactions_info WHERE user_id = %s"""
 
-ADD_TRANSACTION = """INSERT INTO Transactions_info (amount,category,vendor,is_depoist,user_id) VALUES(%s,%s,%s,%s,%s)"""
+ADD_TRANSACTION = """INSERT INTO Transactions_info (amount,category,vendor,user_id) VALUES(%s,%s,%s,%s)"""
 
 DELETE_TRANSACTION = """DELETE FROM Transactions_info WHERE transaction_id = %s"""
 

@@ -15,9 +15,11 @@ class DalSQL(DAL):
     def get_user_by_id(self, user_id: int) -> User:
         with self.connection.cursor() as cursor:
             cursor.execute(SELECT_USER_BY_ID, [user_id])
-            result = cursor.fetchall()
-            newUser = User(**result)
-            return newUser
+            result = cursor.fetchone()
+            print(result)
+            user = User(**result)
+            print(user)
+            return user
 
     def get_all_transactions_by_user(self, user_id: int) -> List[Transactions]:
         with self.connection.cursor() as cursor:
@@ -35,28 +37,24 @@ class DalSQL(DAL):
     def remove_transaction_by_id(self, transaction_id: int):
         with self.connection.cursor() as cursor:
             transaction = self.get_transaction_by_id(transaction_id)
-            self.change_balance(
-                not transaction.is_depoist, transaction.amount, transaction.user_id)
+            self.change_balanceֹ_for_user(
+                transaction.amount, transaction.user_id)
             cursor.execute(DELETE_TRANSACTION, [transaction_id])
             self.connection.commit()
 
     def add_transaction(self, new_transaction: Transactions, user_id: int) -> int:
         with self.connection.cursor() as cursor:
             cursor.execute(ADD_TRANSACTION, [
-                           new_transaction.amount, new_transaction.category, new_transaction.vendor, new_transaction.is_depoist, user_id])
+                           new_transaction.amount, new_transaction.category, new_transaction.vendor, user_id])
             self.connection.commit()
-        self.change_balance(new_transaction.is_depoist,
-                            new_transaction.amount, user_id)
+        self.change_balanceֹ_for_user(new_transaction.amount, user_id)
         return cursor.lastrowid
 
-    def change_balance(self, is_depoist: bool | int, amount: int, user_id: int):
+    def change_balanceֹ_for_user(self, amount: int, user_id: int):
         with self.connection.cursor() as cursor:
             cursor.execute(SELECT_USER_BY_ID, [user_id])
             balance = int(cursor.fetchone()["balance"])
-            if is_depoist:
-                balance = balance + int(amount)
-            else:
-                balance = balance - int(amount)
+            balance = balance + int(amount)
             cursor.execute(UPDATE_BALANCE_BY_ID, [balance, user_id])
             self.connection.commit()
 

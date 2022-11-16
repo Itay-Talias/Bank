@@ -6,5 +6,4 @@ class Transactions(BaseModel):
     amount: int
     category: str
     vendor: str
-    is_depoist: bool
     user_id: int | None
