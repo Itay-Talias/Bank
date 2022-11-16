@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../style/NavBar.css";
 
@@ -6,7 +6,7 @@ function NavBar(props) {
     return (
         <div className="topnav">
             <Link to="/">Transactions</Link>
-            <Link to="/">Operations</Link>
+            <Link to="/operations">Operations</Link>
             <Link to="/">Breakdown</Link>
             <div
                 className={`balance-navbar ${
