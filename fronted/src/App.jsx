@@ -8,18 +8,22 @@ import axios from "axios"
 import User from "./Model/User";
 
 function App() {
-    const [user, setUser] = useState(new User());
-    useEffect(()=>{
+    const [user, setUser] = useState({});
+    const fetchUser=()=>{
         axios.get('http://localhost:8080/users/1').then(res=>{setUser(new User(res.data.user_id,res.data.username,res.data.password,res.data.balance))})
-    },[])
+    }
+    useEffect(()=>{
+        fetchUser()
+    },[]
+    )
+
     return (
         <Router>
                 <div className="App">
                     <div id="home-background"></div>
-                    <NavBar balance={user.balance}></NavBar>
-                    <Route path="/" exact render={() => <Transactions/>} />
-                    <Route path="/operations" exact render={() => <Operations/>} />
-
+                    <NavBar user={user}></NavBar>
+                    <Route path="/" exact render={() => <Transactions user={user}/>} />
+                    <Route path="/operations" exact render={() => <Operations user={user} fetchUser={fetchUser}/>} />
                 </div>
         </Router>
     );
