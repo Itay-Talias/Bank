@@ -1,6 +1,6 @@
 .Operations {
     width: 300px;
-    height: 300px;
+    height: 370px;
     background-color: #182c61;
     border-radius: 20px;
     text-align: center;
@@ -23,6 +23,11 @@
     border: 0;
 }
 
+.Operations > label {
+    color: aliceblue;
+    margin: 0;
+}
+
 .Operations > button:hover {
     color: black;
     background-color: aliceblue;
@@ -38,4 +43,10 @@
 
 .opertaions-title {
     color: aliceblue;
+}
+.category-input {
+    margin: 13px;
+    width: 270px;
+    height: 30px;
+    border-radius: 5px;
 }
