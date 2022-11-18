@@ -29,9 +29,9 @@ function Operations(props) {
                                 amount: e.target.name==="withdraw"? -(inputValues.amount) : inputValues.amount,
                                 category: inputValues.category,
                                 vendor: inputValues.vendor
-                        })
-                        setInputValues({amount:0,vendor:"",category:""})
-                        props.fetchUser()
+                        }).then(()=>{setInputValues({amount:0,vendor:"",category:""})
+                        props.fetchUser()})
+                        
                 }
                 
         }

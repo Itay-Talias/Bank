@@ -15,3 +15,13 @@ def get_categories(db: DAL = Depends(get_db_connector)):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
     return list(map(lambda m: m["category"], categories))
+
+
+@router.get("/categories/breakdown", status_code=200)
+def get_breakdown(db: DAL = Depends(get_db_connector)):
+    try:
+        breakdown = db.get_breakdown()
+    except mysql.MySQLError as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)
+    return breakdown

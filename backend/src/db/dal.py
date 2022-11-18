@@ -29,5 +29,10 @@ class DAL(ABC):
     def change_balanceֹ_for_user(self, amount: int, user_id: int):
         pass
 
+    @ abstractmethod
     def get_all_categories(self):
+        pass
+
+    @ abstractmethod
+    def get_breakdown(self):
         pass

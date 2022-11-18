@@ -11,3 +11,5 @@ SELECT_ALL_CATEGORIES = """SELECT * FROM Categories_info"""
 UPDATE_BALANCE_BY_ID = """UPDATE Users_info SET balance = %s WHERE user_id = %s"""
 
 SELECT_USER_BY_ID = """SELECT * FROM Users_info WHERE user_id = %s"""
+
+GROUP_BY_CATEGORY = """SELECT category , sum(amount) FROM Transactions_info GROUP BY category"""

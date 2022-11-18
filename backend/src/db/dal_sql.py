@@ -62,6 +62,12 @@ class DalSQL(DAL):
             result = cursor.fetchall()
             return result
 
+    def get_breakdown(self):
+        with self.connection.cursor() as cursor:
+            cursor.execute(GROUP_BY_CATEGORY)
+            result = cursor.fetchall()
+            return result
+
 
 CONNECTOR = None
 
