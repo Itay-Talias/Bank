@@ -31,15 +31,12 @@ async def add_transactions(new_transaction: Transactions, user_id: int = 1, db: 
     return new_transaction
 
 
-@router.delete("/transactions", status_code=204)
-async def delete_transactions(request: Request, db: DAL = Depends(get_db_connector)):
+@router.delete("/transactions/{transaction_id}", status_code=204)
+async def delete_transactions(transaction_id: int = -1, db: DAL = Depends(get_db_connector)):
     try:
-        transaction_id = await request.json()
-        if (len(transaction_id) == 0):
+        if (transaction_id == -1):
             raise ValueError("transaction_id - empty")
-        elif (type(transaction_id["id"]) is not int):
-            raise TypeError("transaction_id - isn't number")
-        db.remove_transaction_by_id(transaction_id=transaction_id["id"])
+        db.remove_transaction_by_id(transaction_id)
     except mysql.MySQLError as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e)

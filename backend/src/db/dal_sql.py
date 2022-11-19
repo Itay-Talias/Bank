@@ -36,7 +36,7 @@ class DalSQL(DAL):
         with self.connection.cursor() as cursor:
             transaction = self.get_transaction_by_id(transaction_id)
             self.change_balanceֹ_for_user(
-                transaction.amount, transaction.user_id)
+                -(transaction.amount), transaction.user_id)
             cursor.execute(DELETE_TRANSACTION, [transaction_id])
             self.connection.commit()
 

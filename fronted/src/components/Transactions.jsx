@@ -6,11 +6,17 @@ import "../style/Transactions.css"
 
 function Transactions(props) {
     const [transactions, setTransactions] = useState([]);
+
+    const fetchTransaction=async()=>{
+        const res = await axios.get('http://localhost:8080/transactions/')
+        setTransactions(res.data)
+    }
+
     useEffect(()=>{
-        axios.get('http://localhost:8080/transactions/').then(res=>{setTransactions(res.data)})
+        fetchTransaction()
     },[])
 
-    return <div className="transactions">{transactions.map((t,i)=><TransactionCard key={i} transaction={t} />)}</div>;
+    return <div className="transactions">{transactions.map((t,i)=><TransactionCard key={i} transaction={t} fetchTransaction={fetchTransaction} fetchUser={props.fetchUser} />)}</div>;
 }
 
 export default Transactions;
