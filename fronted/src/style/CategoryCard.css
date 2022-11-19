@@ -1,0 +1,20 @@
+.category-text-card {
+    padding: 2px 16px;
+}
+
+.category-text-card h4 {
+    display: inline-block;
+    margin: 5px;
+    color: aliceblue;
+}
+
+.category-card {
+    box-shadow: 0 4px 8px 0 rgb(9, 67, 79);
+    border-radius: 10px;
+    transition: 0.8s;
+    text-align: center;
+    margin: 10px;
+    padding: 5px;
+    width: 300px;
+    background-color: #130f40;
+}

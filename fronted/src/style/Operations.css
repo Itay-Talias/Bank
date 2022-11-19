@@ -5,6 +5,8 @@
     border-radius: 20px;
     text-align: center;
     display: inline-block;
+    margin-left: 37%;
+    margin-top: 5%;
 }
 
 .Operations > input {

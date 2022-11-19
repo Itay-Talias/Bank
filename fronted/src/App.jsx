@@ -6,6 +6,7 @@ import Transactions from "./components/Transactions";
 import Operations from "./components/Operations"
 import axios from "axios"
 import User from "./Model/User";
+import Breakdown from "./components/Breakdown"
 
 function App() {
     const [user, setUser] = useState({});
@@ -24,6 +25,7 @@ function App() {
                     <NavBar user={user}></NavBar>
                     <Route path="/" exact render={() => <Transactions user={user}/>} />
                     <Route path="/operations" exact render={() => <Operations user={user} fetchUser={fetchUser}/>} />
+                    <Route path="/breakdown" exact render={() => <Breakdown/>} />
                 </div>
         </Router>
     );

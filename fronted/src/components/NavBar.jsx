@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import "../style/NavBar.css";
 
 function NavBar(props) {
-    console.log(props.user)
     return (
         <div className="topnav">
             <Link to="/">Transactions</Link>
             <Link to="/operations">Operations</Link>
-            <Link to="/">Breakdown</Link>
+            <Link to="/breakdown">Breakdown</Link>
             <div
                 className={`balance-navbar ${
                     props.user.balance > 0 ? "positive" : "negative"

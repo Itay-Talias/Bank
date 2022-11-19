@@ -12,4 +12,4 @@ UPDATE_BALANCE_BY_ID = """UPDATE Users_info SET balance = %s WHERE user_id = %s"
 
 SELECT_USER_BY_ID = """SELECT * FROM Users_info WHERE user_id = %s"""
 
-GROUP_BY_CATEGORY = """SELECT category , sum(amount) FROM Transactions_info GROUP BY category"""
+GROUP_BY_CATEGORY = """SELECT category , sum(amount) AS amount FROM Transactions_info GROUP BY category ORDER BY amount"""
