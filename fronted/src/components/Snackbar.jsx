@@ -20,7 +20,7 @@ export default function Snackbart(props) {
     <Stack spacing={2} sx={{ width: '100%' }}>
       <Snackbar open={props.open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={props.alert} sx={{ width: '100%' }}>
-            {props.alert==consts.SUCCESS ? "The transaction was successfully added!" : "One of the fields is empty"}
+            {props.alert===consts.SUCCESS ? "The transaction was successfully added!" : "One of the fields is empty"}
         </Alert>
       </Snackbar>
     </Stack>
