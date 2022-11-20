@@ -2,6 +2,7 @@ import React,{ useState,useEffect } from "react";
 import axios from "axios"
 import TransactionCard from "./TransactionCard";
 import "../style/Transactions.css"
+import Transaction from "../model/Transaction";
 
 
 function Transactions(props) {
@@ -9,7 +10,7 @@ function Transactions(props) {
 
     const fetchTransaction=async()=>{
         const res = await axios.get('http://localhost:8080/transactions/')
-        setTransactions(res.data)
+        setTransactions(res.data.map(t=>new Transaction(t.user_id,t.amount,t.category,t.vendor,t.transaction_id)))
     }
 
     useEffect(()=>{

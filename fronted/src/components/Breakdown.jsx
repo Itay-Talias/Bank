@@ -9,7 +9,6 @@ function Breakdown() {
     useEffect(()=>{
         axios.get('http://localhost:8080/categories/breakdown').then(res=>{setBreakdown(res.data)})
     },[])
-    console.log(breakdown)
     return <div className="breakdown">{breakdown.map((c,i)=><CategoryCard key={i} category={c}/>)}</div>;
 }
 

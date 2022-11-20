@@ -1,11 +1,12 @@
 .Operations {
     width: 300px;
     height: 370px;
-    background-color: #182c61;
+    background-color: #130f40;
     border-radius: 20px;
     text-align: center;
     display: inline-block;
-    margin-left: 37%;
+    margin-left: 40%;
+    margin-right: 35%;
     margin-top: 5%;
 }
 
