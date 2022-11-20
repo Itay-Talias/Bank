@@ -1,12 +1,13 @@
 import React from "react";
 import "../style/TransactionCard.css"
 import axios from "axios"
+import consts from "../model/Consts"
 
 
 function TransactionCard(props) {
     const deleteTransaction=()=>{
-        axios.delete(`http://localhost:8080/transactions/${props.transaction.transactionId}`)
-        .then(()=>{props.fetchTransaction().then(()=>props.fetchUser())})
+        axios.delete(`${consts.TRANSACTION_URL}${props.transaction.transactionId}`)
+        .then(()=>{props.fetchTransactions().then(()=>props.fetchUser())})
     }
     return( 
         <div className="transaction-card">

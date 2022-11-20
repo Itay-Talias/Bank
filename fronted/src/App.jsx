@@ -7,11 +7,12 @@ import Operations from "./components/Operations"
 import axios from "axios"
 import User from "./model/User";
 import Breakdown from "./components/Breakdown"
+import consts from "./model/Consts"
 
 function App() {
     const [user, setUser] = useState({});
     const fetchUser=()=>{
-        axios.get('http://localhost:8080/users/1').then(res=>{
+        axios.get(consts.USER_URL).then(res=>{
             setUser(new User(res.data.user_id,res.data.username,
                 res.data.password,res.data.balance))})
     }

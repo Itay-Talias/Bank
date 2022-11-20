@@ -43,6 +43,7 @@ function Operations(props) {
                 }                
                 setOpenSnackbar(true)
         }
+        console.log(alertType)
     return( 
         <div className="Operations">
                 <h2 className="opertaions-title">Insert Transaction</h2>
